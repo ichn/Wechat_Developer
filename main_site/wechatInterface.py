@@ -3,6 +3,8 @@ import hashlib
 import os
 import time
 
+import random
+
 import web
 from lxml import etree
 
@@ -50,24 +52,31 @@ class WechatInterface:
             return True
         return False
 
-    def deal_man(self, fromUser, toUser, time, content):
+    def deal_man(self, fromUser, toUser, msg_time, content):
         reply = u"欢迎使用本公众号的服务功能！\n我们已有的服务有：\n1. 早起鸟(under developing)\n2. 各种彩蛋(如吃狗粮)"
-        return self.render.reply_text(fromUser, toUser, time, reply)
+        return self.render.reply_text(fromUser, toUser, msg_time, reply)
 
     def chk_dogfood(self, content):
         if u"狗粮" in content:
             return True
         return False
 
-    def deal_dogfood(self, fromUser, toUser, time, content):
-        dogfood_list = []
+    def deal_dogfood(self, fromUser, toUser, msg_time, content):
+        dogfood_list = ["229196314875904522",
+                        "383173632036633363"
+                        ]
+        image_id = random.choice(dogfood_list)
+        return self.render.reply_image(fromUser, toUser, msg_time, image_id)
 
-    def chk_music(self, content):
-        if u"听歌" in content:
-            return True
-        if u"音乐" in content:
+    def chk_tiaoxi(self, content):
+        if u"调戏" in content:
             return True
         return False
+
+    def deal_tiaoxi(self, fromUser, toUser, msg_time, content):
+        reply = u"讨厌嘛，别调戏人家啦，看看坏叔叔在干什么吧：http://wechat-ichn.eu-gb.mybluemix.net/"
+        return self.render.reply_text(fromUser, toUser, msg_time, reply)
+
 
     def chk_my_lover(self, content):
         if u"最爱的钢琴曲" in content:
@@ -80,38 +89,27 @@ class WechatInterface:
             return True
         return False
 
-    def deal_morning(self, content, msgType, fromUser, toUser, msgTime):
-
-
-    def chk_tiaoxi(self, content):
-        if u"调戏" in content:
-            return True
-        return False
-
-    def getReply(self, content, msgType, fromUser, toUser, msgTime):
-        if self.chk_tiaoxi(content=content):
-            return u"讨厌嘛，别调戏人家啦，看看坏叔叔在干什么吧：http://wechat-ichn.eu-gb.mybluemix.net/"
-        if self.chk_morning(content=content):
-            self.deal_morning(self, content, msgType, fromUser, toUser, msgTime)
-        return u"此功能还在开发中，对不起，你刚才说的是\n" + content + u"\n发送时间是：" + str(time.asctime( time.localtime(time.time()) ))
+    def deal_morning(self, fromUser, toUser, msg_time, content):
+        reply = u"此功能还在开发中，对不起，你刚才说的是\n" + content + u"\n发送时间是：" + str(time.asctime(time.localtime(time.time())))
+        return self.render.reply_text(fromUser, toUser, msg_time, reply)
 
 
     def POST(self):
         str_xml = web.data()  # 获得post来的数据
         xml = etree.fromstring(str_xml)  # 进行XML解析
         content = xml.find("Content").text  # 获得用户所输入的内容
-        msgType = xml.find("MsgType").text # 目前只处理text消息
+        #msgType = xml.find("MsgType").text # 目前只处理text消息
         fromUser = xml.find("FromUserName").text
         toUser = xml.find("ToUserName").text
-        msgTime = xml.find("CreateTime").text
+        #msgTime = xml.find("CreateTime").text
 
-        if self.chk_man(self, content):
-            return self.deal_man(self, fromUser, toUser, int(time.time()), content)
+        if self.chk_man(content):
+            return self.deal_man(fromUser, toUser, int(time.time()), content)
 
-        if self.chk_dogfood(self, content):
-            return self.deal_dogfood(self, fromUser, toUser, int(time.time()), content)
+        if self.chk_dogfood(content):
+            return self.deal_dogfood(fromUser, toUser, int(time.time()), content)
+
+        if self.chk_tiaoxi(content):
+            return self.deal_tiaoxi(fromUser, toUser, int(time.time()), content)
 
         return "success"
-
-
-        return self.render.reply_text(fromUser, toUser, int(time.time()), self.getReply(content, msgType, fromUser, toUser, msgTime))

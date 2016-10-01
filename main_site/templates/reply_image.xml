@@ -1,4 +1,4 @@
-$def with (toUser,fromUser,createTime,content,media_id)
+$def with (toUser,fromUser,createTime,media_id)
 <xml>
 <ToUserName><![CDATA[$toUser]]></ToUserName>
 <FromUserName><![CDATA[$fromUser]]></FromUserName>
