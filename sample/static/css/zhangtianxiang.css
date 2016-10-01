@@ -1,0 +1,58 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    background-color: rgb(39, 174, 96);
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+body {
+    font-size: 22px !important;
+    background-color: rgb(39, 174, 96) !important;
+}
+input[type="number"] {
+    height: 50px !important;
+    line-height: 5px !important;
+    font-size: 22px !important;
+}
+img {
+    background:url('img/loading.gif') no-repeat bottom left !important;
+}
+.tile-image {
+    margin: 10px -3px 10px -3px !important;
+}
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 120%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    background-color: #5cb85c;
+}
+.title1 {
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    display: block;
+    font-family: "Helvetica Neue", Helvetica, "Lucida Grande", Arial, "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", sans-serif;
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 60px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.0980392) -5px 5px 0px;
+}
+.span3 {
+    width:180px !important;
+    float:left !important;
+}

@@ -1,0 +1,9 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: eu-gb.mybluemix.net
+  name: wechat-ichn
+  host: wechat-ichn
+  disk_quota: 512M
+  buildpack: https://github.com/cloudfoundry/python-buildpack

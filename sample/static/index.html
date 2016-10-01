@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>   
+<html lang="zh-CN">   
+    <head>
+        <title>JK1-Random-Names</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        <!-- bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Buttons 库的核心文件 -->
+        <link href="css/buttons.css" rel="stylesheet"> 
+        <!-- 当需要使用带下拉菜单的按钮时才需要加载下面的 JavaScript 文件 -->
+
+        <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+        <script src="js/buttons.js" type="text/javascript"></script>
+        <!-- 只有使用字体图标时才需要加载 Font-Awesome -->
+        <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- ztx's css -->
+        <link href="css/zhangtianxiang.css" rel="stylesheet" type="text/css"/>
+
+
+        <!-- Flat UI -->
+        <link href="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+       <!-- <link href="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link href="css/flat-ui.min.css" rel="stylesheet">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+        <!--[if lt IE 9]>
+          <script src="js/vendor/html5shiv.js"></script>
+          <script src="js/vendor/respond.min.js"></script>
+        <![endif]-->
+
+		<script>
+
+
+		'use strict';
+		var nameArr = [
+		"王艺豪",
+		"沈通",
+		"赵伯林",
+		"宋岳桢",
+		"解晏玥",
+		"卢文龙",
+		"郭天成",
+		"李润宽",
+		"王建宸",
+		"郭生岳",
+		"李东洋",
+		"王小荣",
+		"杨彬",
+		"蔡彦麓",
+		"祖迁淏",
+		"郭泽华",
+		"叶诏辉",
+		"李明达",
+		"黄梓安",
+		"马金辰",
+		"陈铠",
+		"林子涵",
+		"郑卓睿",
+		"李锐",
+		"刘嵩泉",
+		"付泽宇",
+		"刘孙瑞",
+		"吴昊",
+		"孟斗南",
+		"王飒",
+		"杨俊逸",
+		"赵伯罕",
+		"隋安",
+		"吴超越",
+		"高涌博",
+		"王越祎",
+		"丁璨夏",
+		"何义文",
+		"徐德昊",
+		"刘瀚天",
+		"孙玉齐",
+		"曹野",
+		"戴宁",
+		"范芃",
+		"刘壮",
+		"吕海铭",
+		"罗圣松",
+		"王孝聪",
+		"高铭鸿",
+		"胡志峰",
+		"温昕岳",
+		"靳帅祥",
+		"杨光宇",
+		"李京泽",
+		"邵年",
+		"潘翰聪",
+		"周浩博",
+		"叶子杨",
+		"裴恒志",
+		"肖起凡",
+		"张天翔",
+		"张宇恒",
+		"刘晓黎",
+		"陈思捷",
+		"杨芗琳",
+		"朱鸿宁",
+		"宫碧盈",
+		"关佳佳",
+		"顾林天",
+		"盛钡娜",
+		"化嘉仪",
+		"王曦赟",
+		"张鑫",
+		"王欣雨",
+		"严佳雯",
+		"张湲湲",
+		"陈廷曜",
+		"曲筱瑄",
+		"李宛达",
+		"汪扬",
+		"魏宇辰",
+		"茹钰涵",
+		"张愉婷",
+		"邹天韵",
+		"肖梦婕",
+		"马静怡",
+		"扎瑞蒙",
+		"马纳普",
+		];
+		var hasFile = new Set([
+				
+				"胡志峰.jpg",
+				
+				
+				]);
+		var chosen;
+		var num;
+		
+		function rndNum() {
+			var x = Math.random() * nameArr.length;
+			return Math.floor(x);
+		}
+
+		function exists(filespec) {
+			return true;
+			return hasFile.has(filespec);
+		}
+
+		function getCard(name) {
+			var path = 'img/' + name + '.jpg';
+			if (!exists(path))
+				path = 'img/mb.jpg';
+			return '<div class="span3"><div class="tile" style="display:block;width:180px;height:240px;"><img class="tile-image" style="height:170px" src="'+path+'" onerror="this.src=\'img/error.gif\'" ><h3 class="tile-title" style="font-size:16px">'+name+'</h3></div></div>';
+		}
+
+		function getPerson(name) {
+			var path = 'img/' + name + '.jpg';
+			if (!exists(path))
+				path = 'img/mb.jpg';
+			return '<div class="tile" style="height:400px;width:300px;"><img class="tile-image" style="height:300px;" src="' + path + '"><h3 class="tile-title" style="font-size:22px">' + name + '</h3></div>';
+
+		}
+
+				
+		function getName() {
+			var ret = nameArr[rndNum()];
+			if (chosen.has(ret))
+				return getName();
+			else {
+				chosen.add(ret);
+				return ret;
+			}
+		}
+		
+		var who;
+		function rollName() {
+			who = getName();
+			//document.getElementById("person").innerHTML = getPerson(who);
+		}
+		
+/*
+		var dep;
+		
+		var time = [
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			100,
+			200,
+			200,
+			200,
+			200,
+			200,
+			500,
+			500,
+			500,
+			1000,
+			1000,
+		];
+		
+		*/
+		function sleep(ms) {
+			ms += new Date().getTime();
+			while (new Date().getTime() < ms) {
+			}
+		}
+		
+		
+		function getNames() {
+	//		if (dep == time.length) {
+	//			rollName();
+	//			return ;
+	//		}
+			sleep(1000);
+			rollName();
+			//alert("roll " + who);
+	//		++dep;
+		//	sleep(time[dep]);
+			//setTimeout("getNames()", time[dep]);
+		}
+		var tot;
+		function Run() {
+            if (num == tot) return ;
+//			if (num == 0) return ;
+			num ++ ;
+			//dep = 0;
+			getNames();
+			document.getElementById("showNames").innerHTML += getCard(who) + ' ';
+			if (num < 6) document.getElementById("showNames").style.width = (60+200*num) + "px";
+			//alert(document.getElementById("showNames").innerHTML);
+			chosen.add(who);
+			sleep(0);
+			setTimeout("Run()", 0);
+		}
+		
+		function setNumber() {
+			document.getElementById("showNames").innerHTML="";
+			document.getElementById("person").innerHTML="";
+			document.getElementById("showNames").style.width = 60 + "px";
+			chosen = new Set();
+			tot = document.getElementById("real_number").value;
+            num = 0;
+			Run();
+		}
+
+		</script>
+
+    </head>
+    <body>
+        <center>
+            <span class="title1">技科一班 go !</span>
+ <!--            <span class="title1" style="font-size:35px">结果</span> -->
+            <div id="person">
+            </div> 
+
+            <div class="row demo-tiles" style="padding-left:30px;padding-right:30px;margin-left:auto; margin-right: auto;width:60px;" id = "showNames">
+        
+      </div>
+            <div id="settings">
+                <br/>
+                <br/>
+                <span class="title1" style="font-size:35px">请输入抽取人数</span>
+                <div class="control-group-success">
+                    <input type="number" id="real_number" style="width:250px" value="5">
+                </div>
+                <a class="button button-glow button-rounded button-highlight button-large" id="go" style="width:250px" onclick="setNumber()"> Go </a>
+        </center>
+
+        <script src="js/huzhifeng.js" type="text/javascript"></script>
+        <script src="js/zhangtianxiang.js" type="text/javascript"></script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+        <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/vendor/video.js"></script>
+        <script src="js/flat-ui.min.js"></script>
+    </body>
+</html>
