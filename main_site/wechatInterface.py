@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import os
-import time
-
 import random
+import time
 
 import web
 from lxml import etree
 
+import ZaoqiNiao
 
 class WechatInterface:
     def __init__(self):
@@ -90,9 +90,12 @@ class WechatInterface:
         return False
 
     def deal_morning(self, fromUser, toUser, msg_time, content):
+        text = ZaoqiNiao.add_data(fromUser, msg_time)
         reply = u"此功能还在开发中，对不起，你刚才说的是\n" + content + u"\n发送时间是：" + str(time.asctime(time.localtime(time.time())))
-        return self.render.reply_text(fromUser, toUser, msg_time, reply)
 
+        reply += '\n' + text
+
+        return self.render.reply_text(fromUser, toUser, msg_time, reply)
 
     def POST(self):
         str_xml = web.data()  # 获得post来的数据
@@ -111,5 +114,8 @@ class WechatInterface:
 
         if self.chk_tiaoxi(content):
             return self.deal_tiaoxi(fromUser, toUser, int(time.time()), content)
+
+        if self.chk_morning(content):
+            return self.deal_morning(fromUser, toUser, int(time.time()), content)
 
         return "success"
