@@ -14,6 +14,7 @@ class WechatInterface:
         self.app_root = os.path.dirname(__file__)
         self.templates_root = os.path.join(self.app_root, 'templates')
         self.render = web.template.render(self.templates_root)
+        self.zqn = ZaoqiNiao.zqn()
 
     def GET(self):
         # 获取输入参数
@@ -90,11 +91,18 @@ class WechatInterface:
         return False
 
     def deal_morning(self, fromUser, toUser, msg_time, content):
-        text = ZaoqiNiao.add_data(fromUser, msg_time)
-        reply = u"此功能还在开发中，对不起，你刚才说的是\n" + content + u"\n发送时间是：" + str(time.asctime(time.localtime(time.time())))
+        text = self.zqn.add_data(fromUser)
+        # reply = u"此功能还在开发中，对不起，你刚才说的是\n" + content + u"\n发送时间是：" + str(time.asctime(time.localtime(time.time())))
 
-        reply += '\n' + text
+        # reply += '\n' + text
 
+        return self.render.reply_text(fromUser, toUser, msg_time, text)
+
+    def debug(self, fromUser, toUser, msg_time, content):
+        code = content[6:]
+        reply = ""
+        if u"num" in code:
+            reply += str(self.zqn.num_log(msg_time)) + u"\n"
         return self.render.reply_text(fromUser, toUser, msg_time, reply)
 
     def POST(self):
@@ -105,6 +113,9 @@ class WechatInterface:
         fromUser = xml.find("FromUserName").text
         toUser = xml.find("ToUserName").text
         #msgTime = xml.find("CreateTime").text
+
+        if content.startswith("debug"):
+            return self.debug(fromUser, toUser, int(time.time()), content)
 
         if self.chk_man(content):
             return self.deal_man(fromUser, toUser, int(time.time()), content)

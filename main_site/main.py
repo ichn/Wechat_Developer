@@ -3,10 +3,12 @@ import os
 import web
 from wechatInterface import WechatInterface
 from index import Index
+from analysis import Analysis
 
 urls = (
     '/', 'Index',
-    '/wechat-ichn', 'WechatInterface'
+    '/wechat-ichn', 'WechatInterface',
+    '/report/([a-zA-Z0-9]+)', 'Analysis'
 )
 
 

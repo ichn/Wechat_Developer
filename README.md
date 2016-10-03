@@ -50,9 +50,87 @@ BlueMix大法吼！
     * 连续早起多少日。。
     * 起床时间分析（折线图）
 
+表单设计：
+
+* `_id` 
+* `name` 用户名，不知道支不支持unicode字符串，其实不是必要的，如果不直接人和人比较的话，只需要返回是早上第几个签到的即可，最多返回最早什么时候起床
+* `wechat_id` 用户唯一标识符，由`POST`中过来的`fromUser`指定
+* `eve_type` 先支持`morning`，即起床哒
+* `eve_time` 签到时间，用整形存储
+
+查询的JSON表单设计
+
+* 查询一个用户所有的早起签到时间信息
+
+  ```json
+  {
+    "selector": {
+      "wechat_id": "sdfxcsdf2sdf1",
+      "eve_type": "morning"
+    },
+    "fields": [
+      "eve_time"
+    ]
+  }
+  ```
+
+* 没了。。就这么一个功能orz
+
+* 其实还是有的，查询区间内的早起签到时间信息
+
+  ```json
+  {
+    "selector": {
+      "wechat_id": "sdfxcsdf2sdf1",
+      "eve_type": "morning",
+      "eve_time": {
+        "$gt": 1475383784,
+        "$lt": 1475383788
+      }
+    },
+    "fields": [
+      "eve_time"
+    ]
+  }
+  ```
+
+#### 发送POST请求，进行查询
+
+放弃使用POST
+
+询问了IBM的技术人员，直接使用`cloudant`模块中的`get_query_result`
+
+
+
+
+
 ### 解决时区问题
 
 直接在UTC时间上加8个小时即可
+
+datetime、time（时间戳）之间的互相转换
+
+datetime用于表示时间，time用于存放在数据库中用于查询（可以方便地指定区间）
+
+时间格式是`%Y-%m-%d %H:%M:%S`
+
+```py
+tstp = int(time.time())
+# 获取时间戳
+# 不需要毫秒的处理
+
+dt = datetime.datetime.fromtimestamp(tstp)
+# 时间戳转datetime
+
+n_tstp = int(time.mktime(dt.timetuple()))
+# datetime转时间戳
+```
+
+
+
+## 10.03
+
+### 添加报表主页
 
 
 
@@ -64,5 +142,8 @@ BlueMix大法吼！
 
 [webpy新生指南](http://webpy.org/docs/0.3/tutorial.zh-cn)
 
+[python time\datatime\string直接转换](http://blog.sina.com.cn/s/blog_684ae1750101kkid.html)
 
+[Python时间，日期，时间戳之间转换](http://www.2cto.com/kf/201401/276088.html)
 
+[Cloudant Documentation](https://docs.cloudant.com/index.html)
