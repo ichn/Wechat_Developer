@@ -57,7 +57,8 @@ class zqn:
         return len(res)
 
     def get_url(self, user):
-        return u"嘛，这个还在开发，请关注开发日志http://wechat-ichn.eu-gb.mybluemix.net/"
+        return u"想要查看你的签到记录，请戳" + u"http://wechat-ichn.eu-gb.mybluemix.net/report/" + str(user)
+        #return u"嘛，这个还在开发，请关注开发日志http://wechat-ichn.eu-gb.mybluemix.net/"
 
     def get_log(self, user):
         res = self.zqn_db.q_by_id(user)
@@ -70,11 +71,11 @@ class zqn:
         pek_stamp = int(time.mktime(pek_time.timetuple()))
 
         if pek_time.hour < 4:
-            return u"这么早就来了？你还没睡吧魂淡！！怎么可以这样伤害自己的身体，宝宝心疼你啊\n"
+            return u"这么早就来了？你还没睡吧魂淡！！怎么可以这样伤害自己的身体，宝宝心疼你啊\n" + self.get_url(user)
         if pek_time.hour > 8:
-            return u"喂，一觉睡到这个时候你也敢说早上好？？明天早点来吧\n^_^"
+            return u"喂，一觉睡到这个时候你也敢说早上好？？明天早点来吧\n^_^" + self.get_url(user)
         if self.has_log(user, pek_stamp):
-            return u"似乎你今天已经问安过了呢，我可以把这视为调戏吗？\nQwQ"
+            return u"似乎你今天已经问安过了呢，我可以把这视为调戏吗？\nQwQ" + self.get_url(user)
         #print pek_time
 
         num = self.num_log(pek_stamp) + 1
