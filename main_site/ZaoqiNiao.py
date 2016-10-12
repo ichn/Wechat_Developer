@@ -77,6 +77,7 @@ class zqn:
         if self.has_log(user, pek_stamp):
             return u"似乎你今天已经问安过了呢，我可以把这视为调戏吗？\nQwQ" + self.get_url(user)
         #print pek_time
+        #return "qaq"
 
         num = self.num_log(pek_stamp) + 1
         self.zqn_db.add_eve("noname", user, "morning", pek_stamp, num)

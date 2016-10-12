@@ -3,10 +3,14 @@
 import wechatInterface
 import time
 import ZaoqiNiao
+import analysis
 
-A = wechatInterface.WechatInterface()
+a = analysis.Analysis()
 
-print A.deal_morning('user', 'fwq', time.time(), 'good morning')
+print a.GET("oWs3mv1fr7G7NgWAstKi30AalWUs")
+
+
+#print A.deal_morning('user', 'fwq', time.time(), 'good morning')
 
 """
 import ZQN_db
